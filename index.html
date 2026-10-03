@@ -39,7 +39,7 @@
       padding: 2px 4px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.2);
       flex-shrink: 0;
-      height: 26px;
+      height: 24px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -58,13 +58,14 @@
       line-height: 1;
     }
 
+    /* CONTAINER UTAMA LAYAR */
     .screen {
       display: none;
       flex: 1;
       flex-direction: column;
       justify-content: space-between;
       padding: 4px 8px;
-      height: calc(100vh - 26px);
+      height: calc(100vh - 24px);
       overflow: hidden;
     }
 
@@ -148,11 +149,11 @@
       display: flex;
       flex-direction: row;
       justify-content: center;
-      align-items: center;
+      align-items: flex-start; /* Mengikat rapat ke atas */
       gap: 6px;
       flex: 1;
       min-height: 0;
-      margin-bottom: 4px;
+      width: 100%;
     }
 
     .candidate-card {
@@ -160,18 +161,18 @@
       border: 3px solid #0052cc;
       border-radius: 6px;
       flex: 1;
-      height: 100%;
+      height: calc(100vh - 80px); /* Batasi tinggi maksimum agar tombol bawah selalu muat */
+      max-height: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      justify-content: flex-start;
       padding: 2px;
       cursor: pointer;
       transition: all 0.15s ease;
       overflow: hidden;
     }
 
-    /* BORDER HIJAU DITEBALKAN (6PX) */
     .candidate-card.selected {
       border: 6px solid #28a745 !important;
       background-color: #e8f8ec;
@@ -229,28 +230,29 @@
       color: #333;
     }
 
+    /* CONTAINER LAYAR KONFIRMASI (FOTO DI NAINKAN KE ATAS, DITENGAHKAN KIRI-KANAN) */
     #confirm-container {
       flex: 1;
       min-height: 0;
       display: flex;
       flex-direction: row;
-      justify-content: center;
-      align-items: center;
-      gap: 6px;
+      justify-content: center; /* Kiri-kanan di tengah */
+      align-items: flex-start; /* Dinaikkan ke atas rapat dengan pesan konfirmasi */
+      gap: 12px; /* Jarak berdekatan jika lebih dari 1 kandidat */
       background: #ffffff;
-      border: 2px solid #ccc; /* Hapus border hijau di layar konfirmasi */
+      border: 2px solid #ccc;
       border-radius: 6px;
-      padding: 4px;
+      padding: 6px;
       margin: 2px 0;
       overflow: hidden;
     }
 
     #confirm-container .candidate-card {
-      border: 1px solid #ccc !important;
+      border: 2px solid #0052cc !important;
       flex: 0 1 auto;
       width: auto;
-      max-width: 130px;
-      height: 100%;
+      max-width: 45%;
+      height: calc(100vh - 100px); /* Batas tinggi ketat agar tombol ULANGI & PILIH selalu nampak */
       padding: 2px;
     }
 
@@ -267,7 +269,7 @@
       flex: 1;
       border: none;
       border-radius: 6px;
-      font-size: 13px;
+      font-size: 14px;
       font-weight: 900;
       color: #ffffff;
       cursor: pointer;
@@ -285,6 +287,7 @@
     /* LAYAR SELESAI */
     .empty-msg {
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       flex: 1;
@@ -298,16 +301,18 @@
       margin-bottom: 6px;
     }
 
-    /* PENYESUAIAN KHUSUS LAYAR LANDSCAPE PENDEK (HP) */
+    /* MEDIA QUERIES UNTUK LANDSCAPE HP */
     @media screen and (max-height: 480px) {
       header { height: 20px; padding: 1px; }
       header h1 { font-size: 9px; }
       header p { display: none; }
       .screen { height: calc(100vh - 20px); padding: 3px 6px; }
-      .action-bar { height: 32px; }
-      .btn { font-size: 11px; font-weight: 900; }
+      .action-bar { height: 34px; }
+      .btn { font-size: 12px; font-weight: 900; }
       .confirm-header-text h3 { font-size: 11px; }
       .confirm-header-text p { font-size: 9px; }
+      .candidate-card { height: calc(100vh - 65px); }
+      #confirm-container .candidate-card { height: calc(100vh - 85px); }
     }
   </style>
 </head>
@@ -382,7 +387,8 @@
   <!-- LAYAR SELESAI -->
   <div id="screen-thanks" class="screen">
     <div class="empty-msg">
-      <h2>TERIMA KASIH!<br><br>Pilihan Anda Telah Berhasil Disimpan.</h2>
+      <h2>TERIMA KASIH!</h2>
+      <p style="margin-top: 4px;">Pilihan Anda Telah Berhasil Disimpan.</p>
     </div>
     <div class="action-bar">
       <button class="btn btn-blue" onclick="resetToScan()">KEMBALI KE LAYAR SCAN</button>
@@ -520,7 +526,6 @@
       document.getElementById("screen-confirm").classList.add("active");
     }
 
-    /* TOMBOL ULANGI: RESET PILIHAN & KEMBALI KESELURUHAN */
     function resetAndBack() {
       selectedCandidates.clear();
       document.querySelectorAll('#screen-vote .candidate-card').forEach(c => c.classList.remove('selected'));
