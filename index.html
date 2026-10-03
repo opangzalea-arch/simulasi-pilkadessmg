@@ -32,19 +32,19 @@
       background: linear-gradient(to right, #cc0000, #990000);
       color: white;
       text-align: center;
-      padding: 6px 10px;
+      padding: 4px 8px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.2);
       flex-shrink: 0;
     }
 
     header h1 {
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 800;
       letter-spacing: 1px;
     }
 
     header p {
-      font-size: 10px;
+      font-size: 9px;
       opacity: 0.95;
     }
 
@@ -53,8 +53,8 @@
       flex: 1;
       flex-direction: column;
       justify-content: space-between;
-      padding: 8px 10px;
-      height: calc(100vh - 40px);
+      padding: 6px 8px;
+      height: calc(100vh - 35px);
       overflow: hidden;
     }
 
@@ -91,14 +91,14 @@
     }
 
     .scan-box h2 {
-      font-size: 16px;
+      font-size: 15px;
       color: #0052cc;
       margin-bottom: 4px;
       font-weight: 800;
     }
 
     .scan-box p {
-      font-size: 11px;
+      font-size: 10px;
       color: #555;
       margin-bottom: 8px;
     }
@@ -106,7 +106,7 @@
     #video-container {
       position: relative;
       width: 100%;
-      height: 180px;
+      height: 170px;
       background-color: #000;
       border-radius: 8px;
       overflow: hidden;
@@ -132,15 +132,16 @@
 
     .scan-status.error { color: #d93025; }
 
-    /* LAYAR VOTE & KONFIRMASI */
+    /* LAYAR VOTE (DIKECILKAN AGAR TOMBOL TAMPIL FULL DI BAWAH) */
     .candidates-container {
       display: flex;
       flex-direction: row;
       justify-content: center;
-      align-items: stretch;
-      gap: 8px;
+      align-items: center;
+      gap: 6px;
       flex: 1;
-      max-height: calc(100vh - 90px);
+      max-height: calc(100vh - 95px); /* Membatasi tinggi agar tombol tidak terdorong */
+      overflow: hidden;
     }
 
     .candidate-card {
@@ -148,17 +149,19 @@
       border: 3px solid #0052cc;
       border-radius: 8px;
       flex: 1;
+      height: 100%;
+      max-height: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 3px;
+      padding: 2px;
       cursor: pointer;
       transition: all 0.2s ease;
     }
 
     .candidate-card.selected {
-      border: 5px solid #28a745;
+      border: 4px solid #28a745;
       background-color: #e8f8ec;
       box-shadow: 0 0 8px rgba(40, 167, 69, 0.5);
     }
@@ -173,12 +176,12 @@
     }
 
     .candidate-img-wrapper img {
-      width: 100%;
-      height: 100%;
+      max-width: 100%;
+      max-height: 100%;
       object-fit: contain;
     }
 
-    /* TAMPILAN LANDSCAPE AMAN (TIDAK MENUTUPI TOMBOL) */
+    /* LAYAR KONFIRMASI (DIRAPATKAN & TEPAT DI TENGAH) */
     #screen-confirm {
       position: fixed;
       top: 0;
@@ -187,7 +190,7 @@
       height: 100vh;
       background-color: #c0d3eb;
       z-index: 999;
-      padding: 8px 12px;
+      padding: 6px 10px;
       display: none;
       flex-direction: column;
       justify-content: space-between;
@@ -196,7 +199,7 @@
     #screen-confirm.active { display: flex; }
 
     .confirm-header-text h3 {
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 800;
       color: #1a2a3a;
     }
@@ -206,33 +209,38 @@
       color: #4a5a6a;
     }
 
+    /* FOTO KONFIRMASI DIRAPATKAN DENGAN MARGIN TENGAH */
     #confirm-container {
       flex: 1;
       display: flex;
       flex-direction: row;
-      justify-content: center;
+      justify-content: center; /* Presisi rapat di tengah */
       align-items: center;
-      gap: 8px;
+      gap: 6px; /* Jarak antar foto kandidat dibuat rapat */
       background: #ffffff;
       border: 3px solid #28a745;
       border-radius: 10px;
       padding: 6px;
-      max-height: 50vh;
+      max-height: 60vh;
+      margin: 4px auto; /* Margin tengah */
+      width: 100%;
       overflow-x: auto;
-      overflow-y: hidden;
     }
 
     #confirm-container .candidate-card {
-      border: none !important;
-      max-width: 160px;
+      border: 1px solid #ddd !important;
+      flex: 0 1 auto;
+      width: auto;
+      max-width: 130px; /* Ukuran foto rapat & proporsional */
       height: 100%;
+      padding: 2px;
     }
 
     .action-bar {
-      height: 42px;
+      height: 38px;
       display: flex;
-      gap: 10px;
-      margin-top: 4px;
+      gap: 8px;
+      margin-top: 2px;
       flex-shrink: 0;
     }
 
@@ -240,7 +248,7 @@
       flex: 1;
       border: none;
       border-radius: 6px;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 900;
       color: white;
       cursor: pointer;
@@ -362,7 +370,6 @@
       4: { img: "https://lh3.googleusercontent.com/d/1-wi1yIcUUBu7knC3UkrjB_OF4rvWRyBD" }
     };
     
-    // MEMILIKI FITUR PILIH BANYAK KANDIDAT
     let selectedCandidates = new Set();
 
     let video = document.getElementById("video-element");
@@ -445,7 +452,6 @@
       }
     }
 
-    // TOGGLE SELEKSI BANYAK KANDIDAT BERSAMAAN
     function toggleSelect(id) {
       const cards = document.querySelectorAll('#screen-vote .candidate-card');
       const card = cards[id - 1];
