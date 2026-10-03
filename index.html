@@ -23,6 +23,7 @@
       min-height: 100vh;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #f0f2f5;
+      overflow-x: hidden;
     }
 
     body {
@@ -71,78 +72,127 @@
       display: flex; 
     }
 
-    /* LAYAR SCANNER QR CODE */
+    /* LAYAR SCANNER QR CODE FULLSCREEN */
     #screen-scan {
       position: fixed;
       top: 0;
       left: 0;
       width: 100vw;
       height: 100vh;
-      background-color: #1a2a3a;
+      background-color: #000;
       z-index: 1000;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      padding: 10px;
-      color: white;
+      justify-content: space-between;
+      overflow: hidden;
     }
 
     #screen-scan.hidden { display: none !important; }
 
-    .scan-box {
+    /* Video Background Fullscreen */
+    #video-element {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
-      max-width: 320px;
-      background: #ffffff;
-      border-radius: 10px;
-      padding: 12px;
-      color: #333;
-      text-align: center;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      height: 100%;
+      object-fit: cover;
+      z-index: 1;
     }
 
-    .scan-box h2 {
-      font-size: 14px;
-      color: #0052cc;
-      margin-bottom: 4px;
-      font-weight: 900;
-    }
-
-    .scan-box p {
-      font-size: 11px;
-      color: #333;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-
-    #video-container {
+    /* Overlay untuk Judul & Teks di Atas */
+    .scan-header-overlay {
       position: relative;
+      z-index: 10;
       width: 100%;
-      height: 140px;
-      background-color: #000;
-      border-radius: 8px;
-      overflow: hidden;
-      border: 2px solid #0052cc;
+      padding: 20px 15px 10px;
+      text-align: center;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0));
+      color: white;
+    }
+
+    .scan-header-overlay h2 {
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: 4px;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+    }
+
+    .scan-header-overlay p {
+      font-size: 12px;
+      font-weight: 500;
+      opacity: 0.9;
+      text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+    }
+
+    /* Target Frame Pemindaian Hijau */
+    .scan-frame-wrapper {
+      position: relative;
+      z-index: 10;
+      width: 240px;
+      height: 240px;
       display: flex;
       align-items: center;
       justify-content: center;
     }
 
-    #video-element {
+    /* Garis Sudut Hijau */
+    .scan-corner {
+      position: absolute;
+      width: 35px;
+      height: 35px;
+      border-color: #25d366;
+      border-style: solid;
+    }
+
+    .top-left {
+      top: 0;
+      left: 0;
+      border-width: 4px 0 0 4px;
+      border-top-left-radius: 8px;
+    }
+
+    .top-right {
+      top: 0;
+      right: 0;
+      border-width: 4px 4px 0 0;
+      border-top-right-radius: 8px;
+    }
+
+    .bottom-left {
+      bottom: 0;
+      left: 0;
+      border-width: 0 0 4px 4px;
+      border-bottom-left-radius: 8px;
+    }
+
+    .bottom-right {
+      bottom: 0;
+      right: 0;
+      border-width: 0 4px 4px 0;
+      border-bottom-right-radius: 8px;
+    }
+
+    /* Status Scan / Pesan Bawah */
+    .scan-footer-overlay {
+      position: relative;
+      z-index: 10;
       width: 100%;
-      height: 100%;
-      object-fit: cover;
+      padding: 15px;
+      text-align: center;
+      background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0));
+      color: white;
     }
 
     .scan-status {
-      font-size: 11px;
-      font-weight: 800;
-      color: #0052cc;
-      min-height: 16px;
-      margin-top: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #ffffff;
+      min-height: 18px;
     }
 
-    .scan-status.error { color: #d93025; }
+    .scan-status.error { color: #ff4d4d; }
 
     /* LAYAR VOTE / PEMILIHAN */
     .candidates-container {
@@ -192,13 +242,26 @@
       object-fit: contain;
     }
 
+    /* BARIS TOMBOL AKSI LAYAR PEMILIHAN */
+    #screen-vote .action-bar {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    /* Tombol PILIH KANDIDAT INI memanjang penuh dari ujung kiri ke kanan */
+    #screen-vote .btn-blue {
+      width: 100%;
+      max-width: 100%;
+    }
+
     /* LAYAR KONFIRMASI */
     #screen-confirm {
       display: none;
       width: 100%;
       max-width: 1000px;
       flex-direction: column;
-      align-items: flex-start; /* Diposisikan rata kiri */
+      align-items: flex-start;
       justify-content: flex-start;
       padding: 8px;
     }
@@ -207,7 +270,7 @@
       display: flex; 
     }
 
-    /* TEKS KONFIRMASI DITARUH DI POJOK KIRI ATAS */
+    /* TEKS KONFIRMASI DI POJOK KIRI ATAS */
     .confirm-header-text {
       width: 100%;
       text-align: left;
@@ -228,7 +291,7 @@
       color: #333;
     }
 
-    /* CONTAINER KONFIRMASI: FOTO DIPERKECIL & NAIK KE ATAS */
+    /* CONTAINER KONFIRMASI */
     #confirm-container {
       width: 100%;
       display: flex;
@@ -252,7 +315,7 @@
       padding: 2px;
     }
 
-    /* BARIS TOMBOL AKSI */
+    /* BARIS TOMBOL AKSI UMUM */
     .action-bar {
       width: 100%;
       display: flex;
@@ -301,27 +364,27 @@
 </head>
 <body>
 
-  <!-- LAYAR SCAN QR CODE -->
+  <!-- LAYAR SCAN QR CODE FULLSCREEN -->
   <div id="screen-scan">
-    <div class="scan-box">
-      <h2>PINDAI QR CODE PEMILIH</h2>
-      <p>Arahkan QR Code Pemilih ke Kamera</p>
+    <video id="video-element" playsinline muted></video>
 
-      <div id="video-container">
-        <video id="video-element" playsinline muted></video>
-      </div>
+    <!-- Header Teks Atas -->
+    <div class="scan-header-overlay">
+      <h2>Arahkan Kamera ke QR Code</h2>
+      <p>Pastikan QR Code Terlihat Jelas dan dalam Frame</p>
+    </div>
 
+    <!-- Frame Hijau Pemindaian -->
+    <div class="scan-frame-wrapper">
+      <div class="scan-corner top-left"></div>
+      <div class="scan-corner top-right"></div>
+      <div class="scan-corner bottom-left"></div>
+      <div class="scan-corner bottom-right"></div>
+    </div>
+
+    <!-- Status Pemindaian Bawah -->
+    <div class="scan-footer-overlay">
       <div id="scan-status" class="scan-status">Menghubungkan Kamera...</div>
-
-      <!-- Tombol Tes Simulasi Cepat -->
-      <div style="margin-top:10px; display:flex; gap:6px; border-top: 1px solid #eee; padding-top: 8px;">
-        <button class="btn btn-blue" style="font-size: 10px; height: 30px;" onclick="handleQrDetected('pemsimpilkadessmg1')">
-          TES PEMILIH 1
-        </button>
-        <button class="btn btn-blue" style="font-size: 10px; height: 30px; background-color:#28a745;" onclick="handleQrDetected('TESTER-REPEATED')">
-          TES VIP / REPEAT
-        </button>
-      </div>
     </div>
   </div>
 
@@ -374,7 +437,7 @@
       <p style="margin-top: 6px;">Pilihan Anda Telah Berhasil Disimpan.</p>
     </div>
     <div class="action-bar">
-      <button class="btn btn-blue" onclick="resetToScan()">KEMBALI KE LAYAR SCAN</button>
+      <button class="btn btn-blue" style="max-width:100%; width:100%;" onclick="resetToScan()">KEMBALI KE LAYAR SCAN</button>
     </div>
   </div>
 
@@ -406,14 +469,14 @@
       scanning = true;
       const status = document.getElementById("scan-status");
       status.className = "scan-status";
-      status.innerText = "Meminta Akses Kamera...";
+      status.innerText = "Mencari Kamera...";
 
       navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } })
         .then(function(stream) {
           video.srcObject = stream;
           video.setAttribute("playsinline", true);
           video.play();
-          status.innerText = "Arahkan QR Code ke Kamera";
+          status.innerText = "Siap memindai QR Code...";
           requestAnimationFrame(tick);
         })
         .catch(function(err) {
@@ -422,12 +485,12 @@
               video.srcObject = stream;
               video.setAttribute("playsinline", true);
               video.play();
-              status.innerText = "Arahkan QR Code ke Kamera";
+              status.innerText = "Siap memindai QR Code...";
               requestAnimationFrame(tick);
             })
             .catch(function(err2) {
               status.className = "scan-status error";
-              status.innerText = "❌ Izin kamera ditolak oleh browser.";
+              status.innerText = "❌ Akses kamera ditolak / tidak ditemukan.";
             });
         });
     }
