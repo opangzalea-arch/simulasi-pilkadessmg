@@ -35,20 +35,19 @@
       background: linear-gradient(to right, #cc0000, #990000);
       color: white;
       text-align: center;
-      padding: 3px 8px;
+      padding: 2px 4px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.2);
       flex-shrink: 0;
-      height: 28px;
     }
 
     header h1 {
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 800;
-      letter-spacing: 1px;
+      letter-spacing: 0.5px;
     }
 
     header p {
-      font-size: 8px;
+      font-size: 7px;
       opacity: 0.95;
     }
 
@@ -56,8 +55,9 @@
       display: none;
       flex: 1;
       flex-direction: column;
-      padding: 6px;
-      height: calc(100vh - 28px);
+      justify-content: space-between;
+      padding: 4px;
+      height: calc(100vh - 22px);
       overflow: hidden;
     }
 
@@ -84,17 +84,17 @@
 
     .scan-box {
       width: 100%;
-      max-width: 340px;
+      max-width: 320px;
       background: #ffffff;
       border-radius: 12px;
-      padding: 10px;
+      padding: 8px;
       color: #333;
       text-align: center;
       box-shadow: 0 4px 15px rgba(0,0,0,0.3);
     }
 
     .scan-box h2 {
-      font-size: 13px;
+      font-size: 12px;
       color: #0052cc;
       margin-bottom: 2px;
       font-weight: 800;
@@ -103,13 +103,13 @@
     .scan-box p {
       font-size: 9px;
       color: #555;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
 
     #video-container {
       position: relative;
       width: 100%;
-      height: 130px;
+      height: 110px;
       background-color: #000;
       border-radius: 8px;
       overflow: hidden;
@@ -126,31 +126,31 @@
     }
 
     .scan-status {
-      font-size: 10px;
+      font-size: 9px;
       font-weight: bold;
       color: #0052cc;
-      min-height: 16px;
-      margin-top: 4px;
+      min-height: 14px;
+      margin-top: 2px;
     }
 
     .scan-status.error { color: #d93025; }
 
-    /* LAYAR VOTE */
+    /* LAYAR VOTE & LANDSCAPE RESPONSIVE FIX */
     .candidates-container {
       display: flex;
       flex-direction: row;
       justify-content: center;
       align-items: center;
-      gap: 6px;
-      flex: 1; /* Mengisi sisa ruang secara dinamis */
-      min-height: 0; /* Penting agar flex-child tidak terpotong */
-      margin-bottom: 6px;
+      gap: 4px;
+      flex: 1;
+      min-height: 0;
+      margin-bottom: 4px;
     }
 
     .candidate-card {
       background: white;
       border: 3px solid #0052cc;
-      border-radius: 8px;
+      border-radius: 6px;
       flex: 1;
       height: 100%;
       display: flex;
@@ -163,7 +163,7 @@
       overflow: hidden;
     }
 
-    /* BORDER HIJAU TEBAL 6PX */
+    /* BORDER HIJAU DITEBALKAN 6PX */
     .candidate-card.selected {
       border: 6px solid #28a745 !important;
       background-color: #e8f8ec;
@@ -185,6 +185,30 @@
       object-fit: contain;
     }
 
+    /* BARIS TOMBOL Aksi */
+    .action-bar {
+      height: 32px;
+      display: flex;
+      gap: 6px;
+      flex-shrink: 0;
+      width: 100%;
+    }
+
+    /* PENYESUAIAN KHUSUS KHUSUS UNTUK HP MODE LANDSCAPE */
+    @media screen and (max-height: 500px) {
+      header {
+        padding: 1px 4px;
+        height: 18px;
+      }
+      header h1 { font-size: 9px; }
+      header p { display: none; }
+      .screen { height: calc(100vh - 18px); padding: 2px 4px; }
+      .candidates-container { max-height: calc(100vh - 58px); }
+      #confirm-container { max-height: calc(100vh - 78px); }
+      .action-bar { height: 28px; }
+      .btn { font-size: 10px !important; }
+    }
+
     /* LAYAR KONFIRMASI */
     #screen-confirm {
       position: fixed;
@@ -194,30 +218,29 @@
       height: 100vh;
       background-color: #c0d3eb;
       z-index: 999;
-      padding: 6px;
+      padding: 4px;
       display: none;
       flex-direction: column;
+      justify-content: space-between;
     }
 
     #screen-confirm.active { display: flex; }
 
     .confirm-header-text {
       flex-shrink: 0;
-      margin-bottom: 4px;
     }
 
     .confirm-header-text h3 {
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 800;
       color: #1a2a3a;
     }
 
     .confirm-header-text p {
-      font-size: 9px;
+      font-size: 8px;
       color: #4a5a6a;
     }
 
-    /* WADAH FOTO KONFIRMASI (TANPA BORDER HIJAU, RAPAT DI TENGAH) */
     #confirm-container {
       flex: 1;
       min-height: 0;
@@ -227,10 +250,10 @@
       align-items: center;
       gap: 6px;
       background: #ffffff;
-      border: 2px solid #ccc;
-      border-radius: 8px;
-      padding: 4px;
-      margin-bottom: 6px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      padding: 2px;
+      margin: 2px 0;
       overflow: hidden;
     }
 
@@ -243,20 +266,11 @@
       padding: 2px;
     }
 
-    /* BARIS TOMBOL Aksi SELALU TERLIHAT DI BAWAH */
-    .action-bar {
-      height: 36px;
-      display: flex;
-      gap: 8px;
-      flex-shrink: 0; /* Mencegah tombol mengecil/menghilang */
-      width: 100%;
-    }
-
     .btn {
       flex: 1;
       border: none;
-      border-radius: 6px;
-      font-size: 12px;
+      border-radius: 5px;
+      font-size: 11px;
       font-weight: 900;
       color: white;
       cursor: pointer;
@@ -274,7 +288,7 @@
       align-items: center;
       justify-content: center;
       flex: 1;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 700;
       color: #155724;
       background-color: #d4edda;
@@ -298,11 +312,11 @@
       <div id="scan-status" class="scan-status">Menghubungkan Kamera...</div>
 
       <!-- Tombol Tes Simulasi Cepat -->
-      <div style="margin-top:8px; display:flex; gap:4px; border-top: 1px solid #eee; padding-top: 6px;">
-        <button class="btn btn-blue" style="font-size: 9px; height: 24px;" onclick="handleQrDetected('pemsimpilkadessmg1')">
+      <div style="margin-top:6px; display:flex; gap:4px; border-top: 1px solid #eee; padding-top: 4px;">
+        <button class="btn btn-blue" style="font-size: 8px; height: 22px;" onclick="handleQrDetected('pemsimpilkadessmg1')">
           Tes Pemilih 1
         </button>
-        <button class="btn btn-blue" style="font-size: 9px; height: 24px; background-color:#28a745;" onclick="handleQrDetected('TESTER-REPEATED')">
+        <button class="btn btn-blue" style="font-size: 8px; height: 22px; background-color:#28a745;" onclick="handleQrDetected('TESTER-REPEATED')">
           Tes VIP / Repeat
         </button>
       </div>
@@ -331,7 +345,6 @@
       </div>
     </div>
 
-    <!-- TOMBOL PILIH KANDIDAT INI DI BAWAH -->
     <div class="action-bar">
       <button class="btn btn-blue" onclick="goToConfirm()">PILIH KANDIDAT INI</button>
     </div>
@@ -346,7 +359,6 @@
     
     <div id="confirm-container"></div>
 
-    <!-- TOMBOL ULANGI & PILIH DI BAWAH -->
     <div class="action-bar">
       <button class="btn btn-danger" onclick="resetAndBack()">ULANGI</button>
       <button class="btn btn-blue" onclick="finishVote()">PILIH</button>
@@ -494,7 +506,6 @@
       document.getElementById("screen-confirm").classList.add("active");
     }
 
-    /* TOMBOL ULANGI: RESET PILIHAN & KEMBALI KE HAK PILIH */
     function resetAndBack() {
       selectedCandidates.clear();
       document.querySelectorAll('#screen-vote .candidate-card').forEach(c => c.classList.remove('selected'));
