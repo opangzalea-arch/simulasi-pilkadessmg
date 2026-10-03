@@ -18,12 +18,15 @@
       -webkit-user-select: none;
     }
 
-    body {
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
       font-family: Arial, sans-serif;
       background-color: #f0f2f5;
-      height: 100vh;
-      width: 100vw;
-      overflow: hidden;
+    }
+
+    body {
       display: flex;
       flex-direction: column;
     }
@@ -32,13 +35,14 @@
       background: linear-gradient(to right, #cc0000, #990000);
       color: white;
       text-align: center;
-      padding: 2px 8px;
+      padding: 3px 8px;
       box-shadow: 0 2px 4px rgba(0,0,0,0.2);
       flex-shrink: 0;
+      height: 28px;
     }
 
     header h1 {
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 800;
       letter-spacing: 1px;
     }
@@ -52,8 +56,7 @@
       display: none;
       flex: 1;
       flex-direction: column;
-      justify-content: space-between;
-      padding: 4px 8px;
+      padding: 6px;
       height: calc(100vh - 28px);
       overflow: hidden;
     }
@@ -81,7 +84,7 @@
 
     .scan-box {
       width: 100%;
-      max-width: 360px;
+      max-width: 340px;
       background: #ffffff;
       border-radius: 12px;
       padding: 10px;
@@ -91,7 +94,7 @@
     }
 
     .scan-box h2 {
-      font-size: 14px;
+      font-size: 13px;
       color: #0052cc;
       margin-bottom: 2px;
       font-weight: 800;
@@ -106,7 +109,7 @@
     #video-container {
       position: relative;
       width: 100%;
-      height: 140px;
+      height: 130px;
       background-color: #000;
       border-radius: 8px;
       overflow: hidden;
@@ -132,17 +135,16 @@
 
     .scan-status.error { color: #d93025; }
 
-    /* LAYAR VOTE (DIOPTIMALKAN UNTUK HP LANDSCAPE) */
+    /* LAYAR VOTE */
     .candidates-container {
       display: flex;
       flex-direction: row;
       justify-content: center;
       align-items: center;
       gap: 6px;
-      flex: 1;
-      max-height: 52vh; /* Dibatasi agar tombol di bawah tidak terdorong di mode miring */
-      overflow: hidden;
-      margin-bottom: 4px;
+      flex: 1; /* Mengisi sisa ruang secara dinamis */
+      min-height: 0; /* Penting agar flex-child tidak terpotong */
+      margin-bottom: 6px;
     }
 
     .candidate-card {
@@ -151,7 +153,6 @@
       border-radius: 8px;
       flex: 1;
       height: 100%;
-      max-height: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -159,13 +160,14 @@
       padding: 2px;
       cursor: pointer;
       transition: all 0.15s ease;
+      overflow: hidden;
     }
 
-    /* BORDER HIJAU DITEBALKAN MENJADI 6PX */
+    /* BORDER HIJAU TEBAL 6PX */
     .candidate-card.selected {
       border: 6px solid #28a745 !important;
       background-color: #e8f8ec;
-      box-shadow: 0 0 12px rgba(40, 167, 69, 0.7);
+      box-shadow: 0 0 10px rgba(40, 167, 69, 0.6);
     }
 
     .candidate-img-wrapper {
@@ -192,13 +194,17 @@
       height: 100vh;
       background-color: #c0d3eb;
       z-index: 999;
-      padding: 4px 10px 8px 10px;
+      padding: 6px;
       display: none;
       flex-direction: column;
-      justify-content: space-between;
     }
 
     #screen-confirm.active { display: flex; }
+
+    .confirm-header-text {
+      flex-shrink: 0;
+      margin-bottom: 4px;
+    }
 
     .confirm-header-text h3 {
       font-size: 12px;
@@ -211,22 +217,21 @@
       color: #4a5a6a;
     }
 
-    /* WADAH KONFIRMASI (BORDER HIJAU DIHAPUS & LEBIH PENDEK UNTUK LANDSCAPE) */
+    /* WADAH FOTO KONFIRMASI (TANPA BORDER HIJAU, RAPAT DI TENGAH) */
     #confirm-container {
       flex: 1;
+      min-height: 0;
       display: flex;
       flex-direction: row;
       justify-content: center;
       align-items: center;
       gap: 6px;
       background: #ffffff;
-      border: 2px solid #ccc; /* Border hijau dihapus */
+      border: 2px solid #ccc;
       border-radius: 8px;
       padding: 4px;
-      max-height: 48vh; /* Menjaga foto tetap presisi dan tombol bawah naik */
-      margin: 2px auto;
-      width: 100%;
-      overflow-x: auto;
+      margin-bottom: 6px;
+      overflow: hidden;
     }
 
     #confirm-container .candidate-card {
@@ -238,11 +243,13 @@
       padding: 2px;
     }
 
+    /* BARIS TOMBOL Aksi SELALU TERLIHAT DI BAWAH */
     .action-bar {
-      height: 34px;
+      height: 36px;
       display: flex;
       gap: 8px;
-      flex-shrink: 0;
+      flex-shrink: 0; /* Mencegah tombol mengecil/menghilang */
+      width: 100%;
     }
 
     .btn {
@@ -324,6 +331,7 @@
       </div>
     </div>
 
+    <!-- TOMBOL PILIH KANDIDAT INI DI BAWAH -->
     <div class="action-bar">
       <button class="btn btn-blue" onclick="goToConfirm()">PILIH KANDIDAT INI</button>
     </div>
@@ -338,6 +346,7 @@
     
     <div id="confirm-container"></div>
 
+    <!-- TOMBOL ULANGI & PILIH DI BAWAH -->
     <div class="action-bar">
       <button class="btn btn-danger" onclick="resetAndBack()">ULANGI</button>
       <button class="btn btn-blue" onclick="finishVote()">PILIH</button>
@@ -485,7 +494,7 @@
       document.getElementById("screen-confirm").classList.add("active");
     }
 
-    /* FUNGSI ULANGI: MERESET PILIHAN & MENGHAPUS BORDER HIJAU */
+    /* TOMBOL ULANGI: RESET PILIHAN & KEMBALI KE HAK PILIH */
     function resetAndBack() {
       selectedCandidates.clear();
       document.querySelectorAll('#screen-vote .candidate-card').forEach(c => c.classList.remove('selected'));
