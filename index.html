@@ -152,7 +152,7 @@
       align-items: flex-start;
       gap: 6px;
       width: 100%;
-      margin-bottom: 6px; /* Jarak dibuat rapat ke tombol bawah */
+      margin-bottom: 6px;
     }
 
     .candidate-card {
@@ -160,7 +160,7 @@
       border: 3px solid #0052cc;
       border-radius: 6px;
       flex: 1;
-      max-width: 23%; /* Diperkecil sedikit agar naik lebih atas */
+      max-width: 23%;
       height: auto;
       display: flex;
       flex-direction: column;
@@ -198,7 +198,7 @@
       width: 100%;
       max-width: 1000px;
       flex-direction: column;
-      align-items: center;
+      align-items: flex-start; /* Diposisikan rata kiri */
       justify-content: flex-start;
       padding: 8px;
     }
@@ -207,10 +207,12 @@
       display: flex; 
     }
 
+    /* TEKS KONFIRMASI DITARUH DI POJOK KIRI ATAS */
     .confirm-header-text {
       width: 100%;
-      text-align: center;
+      text-align: left;
       margin-bottom: 6px;
+      padding-left: 2px;
     }
 
     .confirm-header-text h3 {
@@ -238,13 +240,13 @@
       border: 2px solid #ccc;
       border-radius: 6px;
       padding: 6px;
-      margin-bottom: 6px; /* Nempel rapat dengan tombol aksi */
+      margin-bottom: 6px;
       flex-wrap: wrap;
     }
 
     #confirm-container .candidate-card {
       border: 2px solid #0052cc !important;
-      flex: 0 1 140px; /* Ukuran foto dikecilkan agar naik lebih tinggi */
+      flex: 0 1 140px;
       max-width: 35%;
       height: auto;
       padding: 2px;
@@ -505,6 +507,9 @@
           </div>`;
       });
 
+      // Sembunyikan header merah di layar konfirmasi
+      document.getElementById("main-header").style.display = "none";
+
       document.getElementById("screen-vote").classList.remove("active");
       document.getElementById("screen-confirm").classList.add("active");
     }
@@ -512,6 +517,10 @@
     function resetAndBack() {
       selectedCandidates.clear();
       document.querySelectorAll('#screen-vote .candidate-card').forEach(c => c.classList.remove('selected'));
+      
+      // Tampilkan kembali header merah saat kembali ke layar pemilihan
+      document.getElementById("main-header").style.display = "block";
+
       document.getElementById("screen-confirm").classList.remove("active");
       document.getElementById("screen-vote").classList.add("active");
     }
