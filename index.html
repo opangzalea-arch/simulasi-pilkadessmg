@@ -101,177 +101,6 @@
       z-index: 1;
     }
 
-    /* Background Putih Memanjang untuk Teks Arahan */
-    .scan-header-overlay {
-      position: relative;
-      z-index: 10;
-      width: 100%;
-      padding: 14px 15px;
-      text-align: center;
-      background-color: #ffffff;
-      color: #000000;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    }
-
-    .scan-header-overlay h2 {
-      font-size: 16px;
-      font-weight: 800;
-      margin-bottom: 2px;
-      color: #000000;
-    }
-
-    .scan-header-overlay p {
-      font-size: 12px;
-      font-weight: 600;
-      color: #333333;
-    }
-
-    /* Target Frame Pemindaian Hijau */
-    .scan-frame-wrapper {
-      position: relative;
-      z-index: 10;
-      width: 240px;
-      height: 240px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    /* Garis Sudut Hijau */
-    .scan-corner {
-      position: absolute;
-      width: 35px;
-      height: 35px;
-      border-color: #25d366;
-      border-style: solid;
-    }
-
-    .top-left {
-      top: 0;
-      left: 0;
-      border-width: 4px 0 0 4px;
-      border-top-left-radius: 8px;
-    }
-
-    .top-right {
-      top: 0;
-      right: 0;
-      border-width: 4px 4px 0 0;
-      border-top-right-radius: 8px;
-    }
-
-    .bottom-left {
-      bottom: 0Berikut adalah kode `index.html` lengkap yang telah diperbarui sesuai permintaan Anda:
-
-### **Perubahan yang Diterapkan:**
-- **Background Putih Memanjang**: Area teks arahan di bagian atas layar scan kini diberikan **background berwarna putih solid** yang memanjang dari ujung kiri hingga kanan layar (seperti pada foto rujukan).
-- **Warna Teks Hitam**: Teks tulisan arahan diubah menjadi **berwarna hitam** (`color: #000000`).
-- **Elemen Lain Dipertahankan**: Frame garis hijau, ukuran tombol, layar konfirmasi, serta seluruh logika program tetap persis sama seperti sebelumnya.
-
-```html
-<!DOCTYPE html>
-<html>
-<head>
-  <base target="_top">
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Simulasi e-Voting Pilkades</title>
-
-  <!-- Pustaka jsQR Native Scanner -->
-  <script src="[https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js](https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js)"></script>
-
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      user-select: none;
-      -webkit-user-select: none;
-    }
-
-    html, body {
-      width: 100%;
-      min-height: 100vh;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f0f2f5;
-      overflow-x: hidden;
-    }
-
-    body {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-    }
-
-    /* HEADER */
-    header {
-      width: 100%;
-      background: linear-gradient(to right, #cc0000, #990000);
-      color: white;
-      text-align: center;
-      padding: 6px 4px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-      flex-shrink: 0;
-    }
-
-    header h1 {
-      font-size: 13px;
-      font-weight: 900;
-      letter-spacing: 0.5px;
-      line-height: 1.2;
-    }
-
-    header p {
-      font-size: 9px;
-      opacity: 0.95;
-      line-height: 1;
-    }
-
-    /* CONTAINER UTAMA LAYAR */
-    .screen {
-      display: none;
-      width: 100%;
-      max-width: 1000px;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      padding: 8px;
-    }
-
-    .screen.active { 
-      display: flex; 
-    }
-
-    /* LAYAR SCANNER QR CODE FULLSCREEN */
-    #screen-scan {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background-color: #000;
-      z-index: 1000;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: space-between;
-      overflow: hidden;
-    }
-
-    #screen-scan.hidden { display: none !important; }
-
-    /* Video Background Fullscreen */
-    #video-element {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      z-index: 1;
-    }
-
     /* Background Putih Memanjang di Atas untuk Teks Arahan */
     .scan-header-overlay {
       position: relative;
@@ -568,16 +397,16 @@
   <div id="screen-vote" class="screen">
     <div class="candidates-container">
       <div class="candidate-card" onclick="toggleSelect(1)">
-        <div class="candidate-img-wrapper"><img src="[https://lh3.googleusercontent.com/d/1AGxdgJBdQ70qkPM0dvTB6PlJWHRl2GcS](https://lh3.googleusercontent.com/d/1AGxdgJBdQ70qkPM0dvTB6PlJWHRl2GcS)"></div>
+        <div class="candidate-img-wrapper"><img src="https://lh3.googleusercontent.com/d/1AGxdgJBdQ70qkPM0dvTB6PlJWHRl2GcS"></div>
       </div>
       <div class="candidate-card" onclick="toggleSelect(2)">
-        <div class="candidate-img-wrapper"><img src="[https://lh3.googleusercontent.com/d/1vK3xhMIvtQC-LOyAf4jt6P_1JN_T9iMt](https://lh3.googleusercontent.com/d/1vK3xhMIvtQC-LOyAf4jt6P_1JN_T9iMt)"></div>
+        <div class="candidate-img-wrapper"><img src="https://lh3.googleusercontent.com/d/1vK3xhMIvtQC-LOyAf4jt6P_1JN_T9iMt"></div>
       </div>
       <div class="candidate-card" onclick="toggleSelect(3)">
-        <div class="candidate-img-wrapper"><img src="[https://lh3.googleusercontent.com/d/19FmWS2811ougBl2dtWtmQwF9FFFKyDwn](https://lh3.googleusercontent.com/d/19FmWS2811ougBl2dtWtmQwF9FFFKyDwn)"></div>
+        <div class="candidate-img-wrapper"><img src="https://lh3.googleusercontent.com/d/19FmWS2811ougBl2dtWtmQwF9FFFKyDwn"></div>
       </div>
       <div class="candidate-card" onclick="toggleSelect(4)">
-        <div class="candidate-img-wrapper"><img src="[https://lh3.googleusercontent.com/d/1-wi1yIcUUBu7knC3UkrjB_OF4rvWRyBD](https://lh3.googleusercontent.com/d/1-wi1yIcUUBu7knC3UkrjB_OF4rvWRyBD)"></div>
+        <div class="candidate-img-wrapper"><img src="https://lh3.googleusercontent.com/d/1-wi1yIcUUBu7knC3UkrjB_OF4rvWRyBD"></div>
       </div>
     </div>
 
@@ -623,10 +452,10 @@
     let currentActiveUser = "";
 
     const candidatesData = {
-      1: { img: "[https://lh3.googleusercontent.com/d/1AGxdgJBdQ70qkPM0dvTB6PlJWHRl2GcS](https://lh3.googleusercontent.com/d/1AGxdgJBdQ70qkPM0dvTB6PlJWHRl2GcS)" },
-      2: { img: "[https://lh3.googleusercontent.com/d/1vK3xhMIvtQC-LOyAf4jt6P_1JN_T9iMt](https://lh3.googleusercontent.com/d/1vK3xhMIvtQC-LOyAf4jt6P_1JN_T9iMt)" },
-      3: { img: "[https://lh3.googleusercontent.com/d/19FmWS2811ougBl2dtWtmQwF9FFFKyDwn](https://lh3.googleusercontent.com/d/19FmWS2811ougBl2dtWtmQwF9FFFKyDwn)" },
-      4: { img: "[https://lh3.googleusercontent.com/d/1-wi1yIcUUBu7knC3UkrjB_OF4rvWRyBD](https://lh3.googleusercontent.com/d/1-wi1yIcUUBu7knC3UkrjB_OF4rvWRyBD)" }
+      1: { img: "https://lh3.googleusercontent.com/d/1AGxdgJBdQ70qkPM0dvTB6PlJWHRl2GcS" },
+      2: { img: "https://lh3.googleusercontent.com/d/1vK3xhMIvtQC-LOyAf4jt6P_1JN_T9iMt" },
+      3: { img: "https://lh3.googleusercontent.com/d/19FmWS2811ougBl2dtWtmQwF9FFFKyDwn" },
+      4: { img: "https://lh3.googleusercontent.com/d/1-wi1yIcUUBu7knC3UkrjB_OF4rvWRyBD" }
     };
     
     let selectedCandidates = new Set();
