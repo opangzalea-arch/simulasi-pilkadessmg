@@ -633,15 +633,26 @@
       const textContainer = document.getElementById("thanks-text");
 
       if (selectedCandidates.size === 1) {
-        msgBox.className = "empty-msg";
-        textContainer.innerHTML = `Pilihan yang tepat, Anda telah memilih <span class="candidate-name">HAJI ALWI JABARUDIN</span> calon pemimpin yang luar biasa demi kemajuan Desa Sumurgede.`;
-      } else {
-        msgBox.className = "empty-msg warning-msg";
-        textContainer.innerHTML = `Anda Salah, Karena memilih lebih dari satu.`;
-      }
+  // Mengambil data kandidat yang dipilih
+  const kandidatDipilih = Array.from(selectedCandidates)[0];
 
-      document.getElementById("screen-confirm").classList.remove("active");
-      document.getElementById("screen-thanks").classList.add("active");
+  // Mengecek apakah yang dipilih adalah Calon No. 3 (Haji Alwi Jabarudin)
+  if (kandidatDipilih === "1ZFbuqfIGlSHvM9naWr9AM60coAzwHpYC" || kandidatDipilih?.id === "1ZFbuqfIGlSHvM9naWr9AM60coAzwHpYC") {
+    msgBox.className = "empty-msg";
+    textContainer.innerHTML = `Pilihan yang tepat, Anda telah memilih <span class="candidate-name">HAJI ALWI JABARUDIN</span> calon pemimpin yang luar biasa untuk kemajuan Desa Sumurgede.`;
+  } else {
+    // Jika memilih 1 calon TAPI bukan No. 3
+    msgBox.className = "empty-msg warning-msg";
+    textContainer.innerHTML = `ANDA TELAH SALAH MEMILIH, PILIHLAH H. ALWI JABARUDIN UNTUK KEMAJUAN DESA SUMURGEDE`;
+  }
+} else {
+  // Jika memilih lebih dari 1 calon (atau 0)
+  msgBox.className = "empty-msg warning-msg";
+  textContainer.innerHTML = `ANDA SALAH, MEMILIH LEBIH DARI SATU CALON MAKA SUARA ANDA DIANGGAP TIDAK SAH`;
+}
+
+document.getElementById("screen-confirm").classList.remove("active");
+document.getElementById("screen-thanks").classList.add("active");
     }
 
     function resetToScan() {
