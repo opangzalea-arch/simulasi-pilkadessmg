@@ -632,23 +632,30 @@
       const msgBox = document.getElementById("thanks-msg-box");
       const textContainer = document.getElementById("thanks-text");
 
-      if (selectedCandidates.size === 1) {
-  // Mengambil data kandidat yang dipilih
+     if (selectedCandidates.size === 1) {
   const kandidatDipilih = Array.from(selectedCandidates)[0];
 
-  // Mengecek apakah yang dipilih adalah Calon No. 3 (Haji Alwi Jabarudin)
-  if (kandidatDipilih === "1ZFbuqfIGlSHvM9naWr9AM60coAzwHpYC" || kandidatDipilih?.id === "1ZFbuqfIGlSHvM9naWr9AM60coAzwHpYC") {
+  // Ubah data kandidat menjadi teks agar mudah dicek
+  const teksKandidat = JSON.stringify(kandidatDipilih);
+
+  // Cek apakah data kandidat mengandung nomor 3, ID foto, atau nama H. Alwi
+  const isNomorTiga = 
+    kandidatDipilih === 3 || 
+    kandidatDipilih === "3" || 
+    teksKandidat.includes("1ZFbuqfIGlSHvM9naWr9AM60coAzwHpYC") || 
+    teksKandidat.includes("3") ||
+    teksKandidat.toLowerCase().includes("alwi");
+
+  if (isNomorTiga) {
     msgBox.className = "empty-msg";
-    textContainer.innerHTML = `Pilihan yang tepat, Anda telah memilih <span class="candidate-name">HAJI ALWI JABARUDIN</span> calon pemimpin yang luar biasa untuk kemajuan Desa Sumurgede.`;
+    textContainer.innerHTML = `Pilihan yang tepat, Anda telah memilih <span class="candidate-name">HAJI ALWI JABARUDIN</span> calon pemimpin yang luar biasa demi kemajuan Desa Sumurgede.`;
   } else {
-    // Jika memilih 1 calon TAPI bukan No. 3
     msgBox.className = "empty-msg warning-msg";
     textContainer.innerHTML = `ANDA TELAH SALAH MEMILIH, PILIHLAH H. ALWI JABARUDIN UNTUK KEMAJUAN DESA SUMURGEDE`;
   }
 } else {
-  // Jika memilih lebih dari 1 calon (atau 0)
   msgBox.className = "empty-msg warning-msg";
-  textContainer.innerHTML = `ANDA SALAH, MEMILIH LEBIH DARI SATU CALON MAKA SUARA ANDA DIANGGAP TIDAK SAH`;
+  textContainer.innerHTML = `ANDA SALAH, MEMILIH LEBIH DARI SATU CALON MAKA SUARA ANDA DIANGGAP TIDAK SAH, PILIHLAH H. ALWI JABARUDIN UNTUK KEMAJUAN DESA SUMURGEDE`;
 }
 
 document.getElementById("screen-confirm").classList.remove("active");
